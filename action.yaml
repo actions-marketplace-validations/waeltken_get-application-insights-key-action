@@ -1,0 +1,20 @@
+name: "Get Application Insights Instrumentation Key"
+description: "Get the Application Insights instrumentation directly from the resource in Azure."
+inputs:
+  resource-group-name:
+    description: "Resource Group where Application Insights is deployed in."
+    required: true
+  application-insights-name:
+    description: "Name of the Application Insights instance to get the key from."
+    required: true
+outputs:
+  key:
+    description: "Instrumentation Key"
+    value: ${{ steps.insights.outputs.key }}
+runs:
+  using: "composite"
+  steps:
+    - name: Get Application Insights Key
+      shell: bash
+      id: insights
+      run: echo "::set-output name=key::$(az resource show -g ${{ inputs.resource-group-name }} -n ${{ inputs.application-insights-name }} --resource-type 'microsoft.insights/components' --query 'properties.InstrumentationKey' -o tsv)"
