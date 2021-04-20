@@ -1,9 +1,8 @@
 name: "Get Application Insights Instrumentation Key"
 description: "Get the Application Insights instrumentation directly from the resource in Azure."
-icon: 
 branding:
   icon: arrow-down-circle
-  color: 'blue'
+  color: "blue"
 inputs:
   resource-group-name:
     description: "Resource Group where Application Insights is deployed in."
