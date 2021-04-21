@@ -21,3 +21,6 @@ runs:
       shell: bash
       id: insights
       run: echo "::set-output name=key::$(az resource show -g ${{ inputs.resource-group-name }} -n ${{ inputs.application-insights-name }} --resource-type 'microsoft.insights/components' --query 'properties.InstrumentationKey' -o tsv)"
+    - name: Expose key as environment variable
+      shell: bash
+      run: echo "APPLICATION_INSIGHTS_KEY=${{ steps.insights.outputs.key }}" >> $GITHUB_ENV
